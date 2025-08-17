@@ -3,8 +3,13 @@
 <odoo>
     <!-- Fist Menu -->
     <menuitem id="real_estate_menu_root" name="Real Estate" sequence='10'/>
+
     <!-- Seconds Menu -->
-    <menuitem id="real_estate_advertisements" name="Advertisements" parent="real_estate_menu_root" sequence='20'/>
+    <menuitem id="real_estate_advertisements" name="Advertisements" parent="real_estate_menu_root" sequence='10'/>
     <!-- Third Menu -->
-    <menuitem id="advertisements_properties" name='Properties' action='estate_property_action' parent='real_estate_advertisements' sequence='30'/>
+    <menuitem id="advertisements_properties" name='Properties' action='estate_property_action' parent='real_estate_advertisements' sequence='10'/>
+
+    <menuitem id="real_estate_settings" name="Settings" parent="real_estate_menu_root" sequence="20"/>
+    <menuitem id="settings_property_types" name='Property Types' action='estate_property_action' parent='real_estate_settings' sequence='10'/>
+    <menuitem id="settings_Property_tags" name='Property Tags' action='estate_property_action' parent='real_estate_settings' sequence='20'/>
 </odoo>
