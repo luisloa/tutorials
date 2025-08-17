@@ -30,6 +30,7 @@
                     <br></br>
                     <group>
                         <group>
+                            <field name='tag_ids' string='Tag of Property' widget="many2many_tags"/>
                             <field name='property_type_id' string='Type of Property'/>
                             <field name='postcode' string='Postcode'/>
                             <field name='date_availability' string='Available From'/>
@@ -55,12 +56,24 @@
                                 <field name="state" string='State'/>
                             </group>
                         </page>
+                                
+                        <page name="offers" string="Offers">
+                            <field name="offer_ids" string='Offers'>
+                                <list string="Offer" create='true'>
+                                <field name="price" string='Price' width='200'/>
+                                <field name="partner_id" string='Parther' width='200'/>
+                                <field name="status" string='Status' width='200'/>
+                            </list>
+                            </field>
+                        </page>
+
                         <page name="other_info" string="Other Info">
                             <group>
                                 <field name="seller_id" string='Salesman'/>
                                 <field name="buyer_id" string="Buyer" />
                             </group>
                         </page>
+                      
                     </notebook>
 
                     
@@ -87,11 +100,10 @@
                 <filter name='postcode' string="Postcode" context="{'group_by': 'postcode'}"/>
                 
                 
-                <filter name='available_properties_b' 
-                        string='Available Properties By Codepost' 
-                        domain="['|', ('state', '=', 'new'),
-                                        ('state', '=', 'offer_received')]" 
-                        context="{'group_by': 'postcode'}"/>
+                <filter name="available_properties_b" 
+                        string="Available Properties By Codepost" 
+                        domain="['|', ('state', '=', 'new'), 
+                                        ('state', '=', 'offer_received')]"/>
 
             </search>
         </field>
