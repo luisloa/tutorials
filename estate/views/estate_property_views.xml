@@ -24,7 +24,7 @@
             
             <form string="My New House">
                 <sheet>
-                    <h1>My new house</h1>
+                    <h1><field name='name'/></h1>
                     <br></br>
                     <group>
                         <group>
@@ -61,13 +61,25 @@
         <field name="name">estate.property.search</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <search string="oooooo">
+            <search>
                 <field name="name" string='Title'/>
                 <field name="postcode" string='Postcode'/>
                 <field name="expected_price" string='Expected Price'/>
                 <field name="bedrooms" string='Bedrooms'/>
                 <field name="living_area" string='Living Area'/>
                 <field name="facades" string='Facades'/>
+
+                <filter name="date_availability" string="Availability" date="date_availability" end_month='11'/>  
+                
+                <filter name='postcode' string="Postcode" context="{'group_by': 'postcode'}"/>
+                
+                
+                <filter name='available_properties_b' 
+                        string='Available Properties By Codepost' 
+                        domain="['|', ('state', '=', 'new'),
+                                        ('state', '=', 'offer_received')]" 
+                        context="{'group_by': 'postcode'}"/>
+
             </search>
         </field>
     </record>
