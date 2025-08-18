@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import fields, models, api, exceptions, _
 from datetime import date
 from dateutil.relativedelta import relativedelta
 
@@ -84,4 +84,22 @@ class EstateProperty(models.Model):
             self.garden_area = None
             self.garden_orientation = None
         
+    # ====== Buttons state ======
+    def button_cancel(self):
+        for record in self:
+            if record.state =='cancelled':
+                raise exceptions.UserError(_('This property is already cancelled'))
+            elif record.state == 'sold':
+                raise exceptions.UserError(_('This property is already sold'))
+            else:
+                record.state = 'cancelled'
+        
+    def button_sold(self):
+        for record in self:
+            if record.state == 'sold':
+                raise exceptions.UserError(_('This property has already been sold'))
+            elif record.state == 'cancelled':
+                raise exceptions.UserError(_('This property has already been cancelled'))
+            else:
+                record.state = 'sold'
 
