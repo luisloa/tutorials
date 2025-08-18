@@ -65,3 +65,7 @@ En el siguiente enlace se puede visualizar un video donde se expone el entorno e
 Nota: Debido a que el proyecto está desplegado en un entorno contenerizado con Docker, es necesario acceder utilizando la dirección 0.0.0.0 para visualizar la aplicación desde el host.
 
 https://www.youtube.com/watch?v=5nvOuuUlBzw&ab_channel=LuisLoa
+
+# Nota
+Debido al tamaño del entorno completo de Odoo, en el repositorio únicamente se incluye el directorio tutorial, dentro del cual se encuentra tutorial/estate.
+Este directorio contiene el proyecto desarrollado en cumplimiento con los requerimientos establecidos en la prueba técnica.
