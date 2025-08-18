@@ -1,7 +1,6 @@
-from odoo import fields, models
+from odoo import fields, models, api
 from datetime import date
 from dateutil.relativedelta import relativedelta
-
 
 
 class EstateProperty(models.Model):
@@ -42,21 +41,47 @@ class EstateProperty(models.Model):
     )
     active = fields.Boolean(default=True)
 
+
+    # ====== Related Models ======
     property_type_id = fields.Many2one('estate.property.type', string='Type of Property', ondelete='restrict')
     seller_id = fields.Many2one('res.users', string='Seller', default=lambda self: self.env.user.id, ondelete='restrict')
     buyer_id = fields.Many2one('res.partner', string='Buyer', copy=False, ondelete='restrict')
-    
     tag_ids = fields.Many2many('estate.property.tag', 
                                relation='estate_property_estate_property_tag',
                                column1='property_id',
                                column2='tag_id',
-                               string='Tags of propery',
                                ondelete='restrict')
-
     offer_ids = fields.One2many('estate.property.offer', 'property_id',
-                                strting='Offer',
+                                string='Offer',
                                 delegate=True)
     
 
+    # ======= fields computed =======
+    total_area = fields.Integer(compute='_compute_total_area')
+    best_price = fields.Float(compute='_compute_best_offer')
 
+
+
+    @api.depends('garden_area', 'living_area')
+    def _compute_total_area(self):
+        for record in self:
+            record.total_area = record.garden_area + record.living_area
+
+    @api.depends('offer_ids.price')
+    def _compute_best_offer(self):
+        for record in self:
+            if 'offer_ids.price':
+                record.best_price = max(record.offer_ids.mapped('price'), default=0.0) 
+            else:
+                record.best_price = 0.0       
+
+    @api.onchange('garden')
+    def _onchange_garden(self):
+        if self.garden:
+            self.garden_area = 10
+            self.garden_orientation = 'nort'
+        else:
+            self.garden_area = None
+            self.garden_orientation = None
+        
 

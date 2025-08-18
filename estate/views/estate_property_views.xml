@@ -27,10 +27,10 @@
             <form string="My New House">
                 <sheet>
                     <h1><field name='name' placeholder='Name of the haouse'/></h1>
-                    <br></br>
                     <group>
                         <group>
-                            <field name='tag_ids' string='Tag of Property' widget="many2many_tags"/>
+                            <field name='tag_ids' widget="many2many_tags"/>
+                            <br></br>
                             <field name='property_type_id' string='Type of Property'/>
                             <field name='postcode' string='Postcode'/>
                             <field name='date_availability' string='Available From'/>
@@ -38,6 +38,7 @@
 
                         <group>
                             <field name='expected_price' string='Expected Price'/>
+                            <field name="best_price" string='Best Offer' />
                             <field name='selling_price' string='Selling Price'/>
                         </group>
                     </group>
@@ -46,6 +47,7 @@
                         <page name="description" string="Description">
                             <group>
                                 <field name="description" string='Description'/>
+                                <field name="state" string='State'/>
                                 <field name="bedrooms" string='Bedrooms'/>
                                 <field name="living_area" string='Living Area (sqm)'/>
                                 <field name="facades" string='Facades'/>
@@ -53,18 +55,22 @@
                                 <field name="garden" string='Garden'/>
                                 <field name="garden_area" string='Garden Area (sqm)'/>
                                 <field name="garden_orientation" string='Garden Orientation'/>
-                                <field name="state" string='State'/>
+                                <field name="total_area" string='Total Area(sqm)'/>
                             </group>
                         </page>
                                 
                         <page name="offers" string="Offers">
-                            <field name="offer_ids" string='Offers'>
-                                <list string="Offer" create='true'>
-                                <field name="price" string='Price' width='200'/>
-                                <field name="partner_id" string='Parther' width='200'/>
-                                <field name="status" string='Status' width='200'/>
-                            </list>
-                            </field>
+                            <group name="name" string="string">
+                                <field name="offer_ids" string='Offers'>
+                                    <list string="Offer" create='true'>
+                                        <field name="price" string='Price' width='200'/>
+                                        <field name="validity" string='Validity (days)'/>
+                                        <field name="date_deadline" string="Deadline" />
+                                        <field name="partner_id" string='Parther' width='200'/>
+                                        <field name="status" string='Status' width='200'/>
+                                    </list>
+                                </field>
+                            </group>
                         </page>
 
                         <page name="other_info" string="Other Info">
@@ -116,4 +122,16 @@
         <field name='view_mode'>list,form</field>
         <field name="view_id" ref="estate_property_fields_view"/>
     </record>
+
+    <record id="estate_property_types_action" model="ir.actions.act_window">
+        <field name="name">estate.property.type.view</field>
+        <field name="res_model">estate.property.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+     <record id="estate_property_tag_action" model="ir.actions.act_window">
+        <field name="name">estate.property.tag.view</field>
+        <field name="res_model">estate.property.tag</field>
+        <field name="view_mode">list,form</field>
+     </record>
 </odoo>
